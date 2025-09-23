@@ -5,46 +5,79 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
+            name="Customer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('customer_id', models.IntegerField(unique=True)),
-                ('name', models.CharField(max_length=255)),
-                ('company', models.CharField(blank=True, max_length=255)),
-                ('address', models.CharField(max_length=255)),
-                ('postal_code', models.CharField(max_length=20)),
-                ('city', models.CharField(max_length=100)),
-                ('phone', models.CharField(blank=True, max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("customer_id", models.IntegerField(unique=True)),
+                ("name", models.CharField(max_length=255)),
+                ("company", models.CharField(blank=True, max_length=255)),
+                ("address", models.CharField(max_length=255)),
+                ("postal_code", models.CharField(max_length=20)),
+                ("city", models.CharField(max_length=100)),
+                ("phone", models.CharField(blank=True, max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('invoice_number', models.IntegerField(unique=True)),
-                ('date', models.DateField()),
-                ('payment_terms', models.CharField(max_length=100)),
-                ('total', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='invoices.customer')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("invoice_number", models.IntegerField(unique=True)),
+                ("date", models.DateField()),
+                ("payment_terms", models.CharField(max_length=100)),
+                ("total", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="invoices.customer",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='OrderItem',
+            name="OrderItem",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('item_name', models.CharField(max_length=255)),
-                ('hours', models.DecimalField(decimal_places=2, max_digits=7)),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('sum', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='invoices.order')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("item_name", models.CharField(max_length=255)),
+                ("hours", models.DecimalField(decimal_places=2, max_digits=7)),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("sum", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="invoices.order"
+                    ),
+                ),
             ],
         ),
     ]
