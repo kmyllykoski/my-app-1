@@ -8,6 +8,7 @@ from .utils.pdf_importer import parse_and_import_pdfs
 from django.shortcuts import render
 from django.db.models import Sum
 
+
 def clear_database(request):
     if request.method == "POST":
         OrderItem.objects.all().delete()
@@ -20,6 +21,7 @@ def clear_database(request):
 
 def home(request):
     return render(request, "invoices/home.html")
+
 
 # PDF upload form (not used for widget, just for CSRF and validation)
 class PDFUploadForm(forms.Form):
