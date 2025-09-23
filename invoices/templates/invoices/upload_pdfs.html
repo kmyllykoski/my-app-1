@@ -1,0 +1,18 @@
+{% extends 'invoices/base.html' %}
+{% block title %}Upload PDF Invoices{% endblock %}
+{% block content %}
+    <div class="py-8">
+        <h1 class="text-2xl font-bold mb-6">Upload PDF Invoices</h1>
+        {% if message %}
+            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">{{ message }}</div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_pdf_files" class="block font-medium">Select PDF files</label>
+                <input type="file" id="id_pdf_files" name="pdf_files" multiple accept="application/pdf" class="mt-2" required>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload</button>
+        </form>
+    </div>
+{% endblock %}

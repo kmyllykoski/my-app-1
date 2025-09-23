@@ -1,0 +1,13 @@
+{% extends 'invoices/base.html' %}
+{% block title %}Confirm Clear Database{% endblock %}
+{% block content %}
+<div class="py-8">
+    <h1 class="text-2xl font-bold mb-6 text-red-700">Confirm Clear Database</h1>
+    <p class="mb-6">Are you sure you want to delete <b>all</b> customers, orders, and order lines? This cannot be undone.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Yes, clear all data</button>
+        <a href="/" class="ml-4 text-blue-700 hover:underline">Cancel</a>
+    </form>
+</div>
+{% endblock %}

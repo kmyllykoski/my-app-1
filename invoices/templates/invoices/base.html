@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Invoice App{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow mb-8">
+        <div class="container mx-auto px-4 py-4 flex space-x-4">
+            <a href="/" class="text-blue-700 font-semibold hover:underline">Home</a>
+            <a href="/invoices/upload-pdfs/" class="text-blue-700 font-semibold hover:underline">Upload</a>
+            <a href="/invoices/customer-report/" class="text-blue-700 font-semibold hover:underline">Report</a>
+            <a href="/invoices/clear-database/" class="text-red-600 font-semibold hover:underline ml-4">Clear DB</a>
+        </div>
+    </nav>
+    <div class="container mx-auto">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

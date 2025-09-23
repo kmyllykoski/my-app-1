@@ -1,0 +1,29 @@
+{% extends 'invoices/base.html' %}
+{% block title %}Customer Report{% endblock %}
+{% block content %}
+    <div class="py-8">
+        <h1 class="text-2xl font-bold mb-6">Customer Report</h1>
+        <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4 text-left">Name</th>
+                    <th class="py-2 px-4 text-left">Company</th>
+                    <th class="py-2 px-4 text-left">Total Bought (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr class="border-b">
+                    <td class="py-2 px-4">{{ customer.name }}</td>
+                    <td class="py-2 px-4">{{ customer.company }}</td>
+                    <td class="py-2 px-4">{{ customer.total_bought|default:0|floatformat:2 }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="py-4 px-4 text-center">No customers found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
