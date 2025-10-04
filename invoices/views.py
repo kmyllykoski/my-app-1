@@ -20,7 +20,7 @@ def clear_database(request):
 
 
 def home(request):
-    return render(request, "invoices/home.html")
+    return render(request, "home.html")
 
 
 # PDF upload form (not used for widget, just for CSRF and validation)
