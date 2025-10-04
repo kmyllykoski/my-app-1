@@ -1,0 +1,16 @@
+#
+# Optional minimal nixpacks.toml to run migrations and collectstatic during build
+#
+[phases.setup]
+packages = ["postgresql"] # if needed for psycopg build-time
+
+[phases.build]
+# run migrations and collectstatic at build time
+commands = [
+  "python -m pip install -r requirements.txt || true",
+  "python manage.py migrate --noinput",
+  "python manage.py collectstatic --noinput"
+]
+
+[phases.start]
+command = "gunicorn mysite.wsgi:application --bind 0.0.0.0:$PORT"
