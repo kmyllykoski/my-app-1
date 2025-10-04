@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
 from decouple import config
+from django.core.management.utils import get_random_secret_key
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+REPO_DIR = BASE_DIR.parent
+# TEMPLATES_DIR = BASE_DIR / "templates"
 
 # Media files (uploads)
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -20,8 +24,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,10 +34,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-7$s%fj8g9w5!79sp_$k268z$s(fdm&+mx^j6gmsx)@u6q$_bhg"
 
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config("DJANGO_SECRET_KEY", default=get_random_secret_key())
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = [
+        "localhost", "127.0.0.1"
+        ]
+else:
+    ALLOWED_HOSTS = [
+        "*.traefik.me"
+    ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://*.traefik.me",
+    "https://*.traefik.me",
+    "http://localhost",
+    "http://127.0.0.1"
+]
 
 
 # Application definition
@@ -83,24 +105,35 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if config("DJANGO_ENV", default="development") == "production":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('POSTGRES_DB'),
-            'USER': config('POSTGRES_USER'),
-            'PASSWORD': config('POSTGRES_PASSWORD'),
-            'HOST': config('POSTGRES_HOST', default='localhost'),
-            'PORT': config('POSTGRES_PORT', default='5432'),
+DATABASE_URL = config("DATABASE_URL", cast=str, default="")
+if DATABASE_URL:
+    if DATABASE_URL.startswith("postgres://") or DATABASE_URL.startswith(
+        "postgresql://"
+    ):
+        DATABASES = {
+            "default": dj_database_url.config(
+                default=DATABASE_URL,
+            )
         }
-    }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+    if config("DJANGO_ENV", default="development") == "production":
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': config('POSTGRES_DB'),
+                'USER': config('POSTGRES_USER'),
+                'PASSWORD': config('POSTGRES_PASSWORD'),
+                'HOST': config('POSTGRES_HOST', default='localhost'),
+                'PORT': config('POSTGRES_PORT', default='5432'),
+            }
         }
-    }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 
 
 # Password validation
