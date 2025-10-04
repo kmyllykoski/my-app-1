@@ -42,7 +42,7 @@ if DEBUG:
         ]
 else:
     ALLOWED_HOSTS = [
-        "*"
+        "djpdf-app-9h3ko0-2a9933-65-109-2-105.traefik.me"
     ]
 
     # ALLOWED_HOSTS = [
