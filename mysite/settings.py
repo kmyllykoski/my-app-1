@@ -42,8 +42,12 @@ if DEBUG:
         ]
 else:
     ALLOWED_HOSTS = [
-        "*.traefik.me"
+        "*"
     ]
+
+    # ALLOWED_HOSTS = [
+    #     "*.traefik.me"
+    # ]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://*.traefik.me",
