@@ -16,7 +16,9 @@
 
 Some working pdf-files for testing in pdf-test-files directory for testing.
 
-## Dokploy deployment 
+## Deployment on a VPS server with Dokploy
+
+https://docs.dokploy.com/docs/core/installation
 
 To do handle migrations add this to environment variables:
 
