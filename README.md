@@ -14,19 +14,23 @@
 ### Run Django server
 ```uv run python manage.py runserver```
 
-Dokploy deployment 
+Some working pdf-files for testing in psd-test-files directory for testing.
+
+## Dokploy deployment 
 
 To do handle migrations add this to environment variables:
+
 ```NIXPACKS_START_CMD="python manage.py migrate && python manage.py collectstatic --noinput && gunicorn mysite.wsgi"```
+
 https://www.answeroverflow.com/m/1235078349714493500
 
 Example environment:
 
-DJANGO_DEBUG=False
+```DJANGO_DEBUG=False
 DJANGO_SECRET_KEY=django-insecure-7$s%f....
 DATABASE_URL=postgresql://user:password@instance_name_given_by_dokploy:5432/pdf_data
 PORT=8000
-NIXPACKS_START_CMD="python manage.py migrate && python manage.py collectstatic --noinput && gunicorn mysite.wsgi"
+NIXPACKS_START_CMD="python manage.py migrate && python manage.py collectstatic --noinput && gunicorn mysite.wsgi"```
 
 
 
