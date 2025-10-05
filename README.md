@@ -2,8 +2,11 @@
 
 ### Clone the repo in your own folder
 
-### (On Windows) Install UV (https://docs.astral.sh/uv/getting-started/installation/#installation-methods)
+### (On Windows) Install UV 
 ```powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"```
+
+https://docs.astral.sh/uv/getting-started/installation/#installation-methods
+
 
 ### Install dependencies
 ```uv pip install```
