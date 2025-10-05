@@ -29,7 +29,7 @@ def home(request):
         db_type = "sqlite"
     else:
         try:
-            db_type = connection.vendor  # e.g. 'postgresql', 'sqlite', 'mysql'
+            db_type = connection.vendor  # e.g. 'postgresql', 'sqlite', 'mysql'...
         except Exception:
             db_type = "unknown"
 
