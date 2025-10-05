@@ -19,6 +19,11 @@ https://docs.astral.sh/uv/getting-started/installation/#installation-methods
 
 Some working pdf-files for testing in pdf-test-files directory for testing.
 
+Repository includes a ready-to-go sqlite.db but if deleting it or switching to use empty postgres db run:
+
+```uv run python manage.py migrate.py```
+
+
 ## Deployment on a VPS server with Dokploy
 
 https://docs.dokploy.com/docs/core/installation
