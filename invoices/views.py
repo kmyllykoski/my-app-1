@@ -7,6 +7,7 @@ import os
 from .utils.pdf_importer import parse_and_import_pdfs
 from django.shortcuts import render
 from django.db.models import Sum
+from django.db import connection
 
 
 def clear_database(request):
@@ -20,7 +21,19 @@ def clear_database(request):
 
 
 def home(request):
-    return render(request, "home.html")
+    # Try to determine configured engine first, then fallback to connection.vendor
+    db_engine = settings.DATABASES.get("default", {}).get("ENGINE", "") or ""
+    if "postgresql" in db_engine or "postgres" in db_engine:
+        db_type = "postgres"
+    elif "sqlite" in db_engine:
+        db_type = "sqlite"
+    else:
+        try:
+            db_type = connection.vendor  # e.g. 'postgresql', 'sqlite', 'mysql'
+        except Exception:
+            db_type = "unknown"
+
+    return render(request, "home.html", {"db_type": db_type})
 
 
 # PDF upload form (not used for widget, just for CSRF and validation)
